@@ -9,6 +9,7 @@ namespace omi {
 using native_integer = long long;
 using native_real = long double;
 using native_bool = bool;
+using native_string = std::string;
 using native_string_view = std::string_view;
 
 }  // namespace omi

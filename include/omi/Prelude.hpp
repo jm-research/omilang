@@ -1,0 +1,4 @@
+#ifndef OMI_PRELUDE_HPP
+#define OMI_PRELUDE_HPP
+
+#endif  // OMI_PRELUDE_HPP
