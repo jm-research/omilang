@@ -6,6 +6,7 @@
 #include <cstddef>
 
 #include "omi/Runtime/Behavior/AssociativelyReadable.hpp"
+#include "omi/Runtime/Obj/Detail/ListType.hpp"
 #include "omi/Type/NativeBox.hpp"
 #include "omi/Type/Type.hpp"
 
@@ -102,6 +103,8 @@ struct object_ptr_less {
     return l_hash < r_hash;
   }
 };
+
+using persistent_list = list_type_impl<object_ptr>;
 
 }  // namespace detail
 

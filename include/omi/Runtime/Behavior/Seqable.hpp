@@ -207,11 +207,11 @@ struct vector_sequence : sequence, countable {
   static constexpr bool pointer_free = false;
 
   vector_sequence() = default;
-  vector_sequence(native_vector<object_ptr> const& arr, size_t const index)
-      : arr{arr}, index{index} {}
-  vector_sequence(native_vector<object_ptr>&& arr, size_t const index)
-      : arr{std::move(arr)}, index{index} {}
-  vector_sequence(native_vector<object_ptr>&& arr) : arr{std::move(arr)} {}
+  vector_sequence(const native_vector<object_ptr>& arr, const size_t index)
+      : arr(arr), index(index) {}
+  vector_sequence(native_vector<object_ptr>&& arr, const size_t index)
+      : arr(std::move(arr)), index(index) {}
+  vector_sequence(native_vector<object_ptr>&& arr) : arr(std::move(arr)) {}
 
   void to_string(fmt::memory_buffer& buff) const final;
   native_string to_string() const final;
