@@ -3,9 +3,11 @@
 
 #include "omi/Type/NativeBox.hpp"
 
-namespace omi::runtime::behavior {
+namespace omi::runtime {
 
 using object_ptr = native_box<struct object>;
+
+namespace behavior {
 
 struct associatively_writable {
   virtual ~associatively_writable() = default;
@@ -15,6 +17,7 @@ struct associatively_writable {
 
 using associatively_writable_ptr = native_box<associatively_writable>;
 
-}  // namespace omi::runtime::behavior
+}  // namespace behavior
+}  // namespace omi::runtime
 
 #endif  // OMI_RUNTIME_BEHAVIOR_ASSOCIATIVELY_WRITABLE_HPP

@@ -43,8 +43,7 @@ struct consable;
 struct var;
 struct ns;
 
-struct object;
-using object_ptr = native_box<object>;
+using object_ptr = native_box<struct object>;
 
 struct object : gc {
   virtual native_bool equal(const object& other) const;
@@ -71,8 +70,8 @@ struct object : gc {
   virtual const obj::vector* as_vector() const { return nullptr; }
   virtual const obj::map* as_map() const { return nullptr; }
   virtual const obj::set* as_set() const { return nullptr; }
-  virtual const behavior::seqable* as_seqable() const { return nullptr; }
   virtual const obj::function* as_function() const { return nullptr; }
+  virtual const behavior::seqable* as_seqable() const { return nullptr; }
   virtual const behavior::callable* as_callable() const { return nullptr; }
   virtual const behavior::metadatable* as_metadatable() const { return nullptr; }
   virtual const behavior::countable* as_countable() const { return nullptr; }

@@ -3,10 +3,11 @@
 
 #include "omi/Type/NativeBox.hpp"
 
-namespace omi::runtime::behavior {
+namespace omi::runtime {
 
-struct object;
-using object_ptr = native_box<object>;
+using object_ptr = native_box<struct object>;
+
+namespace behavior {
 
 struct associatively_readable {
   virtual ~associatively_readable() = default;
@@ -17,6 +18,7 @@ struct associatively_readable {
 
 using associatively_readable_ptr = native_box<associatively_readable>;
 
-}  // namespace omi::runtime::behavior
+}  // namespace behavior
+}  // namespace omi::runtime
 
 #endif  // OMIT_RUNTIME_BEHAVIOR_ASSOCIATIVELY_READABLE_HPP

@@ -9,13 +9,11 @@ namespace omi::runtime {
 using object_ptr = native_box<struct object>;
 
 namespace obj {
-
 using map_ptr = native_box<struct map>;
-
-}
+}  // namespace obj
 
 namespace behavior {
-  
+
 struct metadatable {
   virtual ~metadatable() = default;
 
@@ -27,7 +25,6 @@ struct metadatable {
 };
 
 }  // namespace behavior
-
 }  // namespace omi::runtime
 
 #endif  // OMI_RUNTIME_BEHAVIOR_METADATABLE_HPP
