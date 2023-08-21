@@ -144,4 +144,36 @@ native_box<runtime::obj::list> make_box(
     const runtime::detail::persistent_list& l);
 }  // namespace omi
 
+namespace std {
+
+template <>
+struct hash<omi::runtime::object> {
+  size_t operator()(const omi::runtime::object& obj) const noexcept {
+    return static_cast<size_t>(obj.to_hash());
+  }
+};
+
+template <>
+struct hash<omi::runtime::object_ptr> {
+  size_t operator()(omi::runtime::object_ptr o) const noexcept {
+    static auto hasher(std::hash<omi::runtime::object>{});
+    return hasher(*o);
+  }
+};
+
+template <>
+struct equal_to<omi::runtime::object_ptr> {
+  bool operator()(omi::runtime::object_ptr lhs,
+                  omi::runtime::object_ptr rhs) const noexcept {
+    if (!lhs) {
+      return !rhs;
+    } else if (!rhs) {
+      return !lhs;
+    }
+    return lhs->equal(*rhs);
+  }
+};
+
+}  // namespace std
+
 #endif  // OMI_RUNTIME_OBJECT_HPP
