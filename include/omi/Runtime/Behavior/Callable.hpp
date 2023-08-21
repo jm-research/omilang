@@ -11,7 +11,7 @@ namespace omi::runtime {
 using object_ptr = native_box<struct object>;
 
 namespace obj {
-using list_ptr = struct list*;
+using list_ptr = native_box<struct list>;
 }  // namespace obj
 
 constexpr size_t const max_params{10};

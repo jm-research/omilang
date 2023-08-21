@@ -5,8 +5,8 @@
 
 namespace omi::runtime::behavior {
 
-struct Countable {
-  virtual ~Countable() = default;
+struct countable {
+  virtual ~countable() = default;
 
   virtual size_t count() const = 0;
 };
