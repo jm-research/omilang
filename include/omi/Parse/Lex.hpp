@@ -31,20 +31,18 @@ enum class token_kind {
 };
 
 struct token {
-  token(const token_kind kind);
-  token(const size_t p, const token_kind kind);
-  token(const size_t p, const token_kind k, const native_integer);
-  token(const size_t p, const token_kind k, const native_real);
-  token(const size_t p, const token_kind k, const native_string_view);
-  token(const size_t p, const token_kind k, const bool);
+  token(token_kind kind);
+  token(size_t p, token_kind kind);
+  token(size_t p, token_kind k, native_integer);
+  token(size_t p, token_kind k, native_real);
+  token(size_t p, token_kind k, native_string_view);
+  token(size_t p, token_kind k, bool);
 
-  token(const size_t p, const size_t s, const token_kind k);
-  token(const size_t p, const size_t s, const token_kind k,
-        const native_integer);
-  token(const size_t p, const size_t s, const token_kind k, const native_real);
-  token(const size_t p, const size_t s, const token_kind k,
-        const native_string_view);
-  token(const size_t p, const size_t s, const token_kind k, const bool);
+  token(size_t p, size_t s, token_kind k);
+  token(size_t p, size_t s, token_kind k, native_integer);
+  token(size_t p, size_t s, token_kind k, native_real);
+  token(size_t p, size_t s, token_kind k, native_string_view);
+  token(size_t p, size_t s, token_kind k, bool);
 
   bool operator==(const token& rhs) const;
   bool operator!=(const token& rhs) const;
@@ -61,6 +59,66 @@ struct token {
   std::variant<no_data, native_integer, native_real, native_string_view,
                native_bool>
       data;
+};
+
+std::string token_to_string(const token& t);
+
+std::ostream& operator<<(std::ostream& os, const token& t);
+std::ostream& operator<<(std::ostream& os, const token::no_data& t);
+
+}  // namespace omi::parse::lex
+
+namespace omi::parse {
+
+struct error {
+  error(size_t s, const native_string& m);
+  error(size_t s, size_t e, const native_string& m);
+  error(const native_string& m);
+
+  bool operator==(const error& rhs) const;
+  bool operator!=(const error& rhs) const;
+
+  size_t start{};
+  size_t end{};
+  native_string message;
+};
+
+std::ostream& operator<<(std::ostream& os, const error& e);
+
+}  // namespace omi::parse
+
+namespace omi::parse::lex {
+
+struct processor {
+  struct iterator {
+    using iterator_category = std::input_iterator_tag;
+    using difference_type = std::ptrdiff_t;
+    using value_type = result<token, error>;
+    using pointer = value_type*;
+    using reference = value_type&;
+
+    const value_type& operator*() const;
+    const value_type* operator->() const;
+    iterator& operator++();
+    bool operator==(const iterator& rhs) const;
+    bool operator!=(const iterator& rhs) const;
+
+    option<value_type> latest;
+    processor& p;
+  };
+
+  processor(const native_string_view& f);
+
+  result<token, error> next();
+  option<char> peek() const;
+  option<error> check_ws(bool found_space);
+
+  iterator begin();
+  iterator end();
+
+  size_t pos{};
+  bool require_space{};
+  native_string_view file;
 };
 
 }  // namespace omi::parse::lex
