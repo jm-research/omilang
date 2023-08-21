@@ -139,4 +139,9 @@ extern obj::nil_ptr OMI_NIL;
 
 }  // namespace omi::runtime
 
+namespace omi {
+native_box<runtime::obj::list> make_box(
+    const runtime::detail::persistent_list& l);
+}  // namespace omi
+
 #endif  // OMI_RUNTIME_OBJECT_HPP
