@@ -112,9 +112,9 @@ struct object_ptr_less {
 };
 
 using persistent_list = list_type_impl<object_ptr>;
-using peristent_vector =
+using persistent_vector =
     immer::vector<object_ptr, immer::default_memory_policy>;
-using transient_vector = peristent_vector::transient_type;
+using transient_vector = persistent_vector::transient_type;
 using persistent_set =
     immer::set<object_ptr, std::hash<object_ptr>, std::equal_to<>,
                immer::default_memory_policy>;
