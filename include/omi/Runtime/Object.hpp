@@ -14,6 +14,7 @@
 
 #include "omi/Runtime/Behavior/AssociativelyReadable.hpp"
 #include "omi/Runtime/Obj/Detail/ListType.hpp"
+#include "omi/Runtime/Obj/Detail/MapType.hpp"
 #include "omi/Type/NativeBox.hpp"
 #include "omi/Type/Type.hpp"
 
@@ -119,6 +120,8 @@ using persistent_set =
     immer::set<object_ptr, std::hash<object_ptr>, std::equal_to<>,
                immer::default_memory_policy>;
 using transient_set = persistent_set::transient_type;
+// using persistent_map = std::map<object_ptr, object_ptr, object_ptr_less>;
+using persistent_map = map_type_impl<object_ptr, object_ptr>;
 }  // namespace detail
 
 namespace obj {
