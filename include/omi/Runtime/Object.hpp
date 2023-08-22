@@ -4,6 +4,13 @@
 #include <fmt/format.h>
 
 #include <cstddef>
+#include <immer/map.hpp>
+#include <immer/map_transient.hpp>
+#include <immer/memory_policy.hpp>
+#include <immer/set.hpp>
+#include <immer/set_transient.hpp>
+#include <immer/vector.hpp>
+#include <immer/vector_transient.hpp>
 
 #include "omi/Runtime/Behavior/AssociativelyReadable.hpp"
 #include "omi/Runtime/Obj/Detail/ListType.hpp"
@@ -105,7 +112,13 @@ struct object_ptr_less {
 };
 
 using persistent_list = list_type_impl<object_ptr>;
-
+using peristent_vector =
+    immer::vector<object_ptr, immer::default_memory_policy>;
+using transient_vector = peristent_vector::transient_type;
+using persistent_set =
+    immer::set<object_ptr, std::hash<object_ptr>, std::equal_to<>,
+               immer::default_memory_policy>;
+using transient_set = persistent_set::transient_type;
 }  // namespace detail
 
 namespace obj {
